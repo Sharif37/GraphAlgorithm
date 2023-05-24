@@ -4,8 +4,8 @@ using namespace std;
 const int INF = numeric_limits<int>::max(); // represents infinity
 
 // Number of vertices
-const int V = 5;
-
+const int V = 15;
+int edges,vertex ;
 // Adjacency list
 vector<pair<int, int>> adj[V];
 
@@ -34,6 +34,7 @@ void dijkstra(int start)
     while (!pq.empty())
     {
         int u = pq.top().second;
+        cout<<"u= "<<u<<" " ;
         pq.pop();
 
         // Get all adjacent of u and update the dist[]
@@ -52,7 +53,7 @@ void dijkstra(int start)
     }
 
     // Print the calculated shortest distances
-    for (int i = 0; i < V; i++)
+    for (int i = 1; i <= vertex; i++)
     {
         cout << i << " " << dist[i] << endl;
     }
@@ -61,7 +62,7 @@ void dijkstra(int start)
 int main()
 {
     // Adding edges to the graph
-    int edges,vertex ;
+
     cin>>edges>>vertex ;
     for(int i=0 ;i<edges ;i++)
     {
@@ -71,7 +72,7 @@ int main()
     }
 
     // Starting node
-    int start = 0;
+    int start = 1;
 
     dijkstra(start);
 

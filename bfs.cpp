@@ -39,9 +39,10 @@ void bfs(int src )
     while(!q.empty())
     {
         int u=q.front();
-        for(int i=0 ;i<v[u].size();i++)
+
+        for(auto neighbour:v[u])
         {
-            int vertex=v[u][i];
+            int vertex=neighbour;
             if(!visited[vertex]){
 
             printf(" %d ",vertex);

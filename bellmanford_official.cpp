@@ -20,12 +20,13 @@ void BellmanFord(const std::vector<std::vector<std::pair<int, int>>>& graph,
     distance[source] = 0;
 
     // Relax edges V-1 times
-    for (int i = 1; i <= V-1; i++)
-    {
+          int c=0 ;
         for (int u = 0; u < V; u++)
         {
-            for (const auto& [v, w] : graph[u])
+            for ( auto [v, w] : graph[u])
             {
+                std::cout<<u<<" "<<v<<" "<<w<<std::endl ;
+                c++ ;
                 if (distance[u] + w < distance[v])
                 {
                     distance[v] = distance[u] + w;
@@ -33,7 +34,8 @@ void BellmanFord(const std::vector<std::vector<std::pair<int, int>>>& graph,
                 }
             }
         }
-    }
+        std::cout<<c<<std::endl ;
+
 
     // Check for negative cycles
     for (int u = 0; u < V; u++)
@@ -57,22 +59,22 @@ void printPath(const std::vector<int>& predecessor, int destination)
         return;
     }
     printPath(predecessor, predecessor[destination]);
-    std::cout << destination << "u ";
+    std::cout << destination << " ";
 }
 
 int main()
 {
     // Create an example graph
     int V = 5;
-    std::vector<std::vector<std::pair<int, int>>> graph(V);
-    graph[0].push_back({1, -1});
-    graph[0].push_back({2, 4});
-    graph[1].push_back({2, 3});
-    graph[1].push_back({3, 2});
-    graph[1].push_back({4, 2});
-    graph[3].push_back({1, 1});
-    graph[3].push_back({2, 5});
-    graph[4].push_back({3, -3});
+    std::vector<std::vector<std::pair<int, int>>> graph(10);
+    int vertex,edges ;
+std:: cin>>edges>>vertex ;
+ for(int i=1;i<=edges ;i++)
+ {
+     int x,y,w ;
+     std::cin>>x>>y>>w ;
+     graph[x].push_back({y,w});
+ }
 
     // Run the Bellman-Ford algorithm
     std::vector<int> distance, predecessor;

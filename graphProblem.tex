@@ -1,0 +1,646 @@
+\documentclass{article}
+
+% Packages
+\usepackage[utf8]{inputenc} % Input encoding
+\usepackage[T1]{fontenc} % Font encoding
+\usepackage{lipsum} % Dummy text package
+
+\usepackage{listings} % For code listings
+\usepackage{xcolor} % For custom colors
+\usepackage [colorlinks=true, linkcolor=blue]{hyperref}
+\usepackage[margin=1 cm]{geometry} % Adjust the margin values as needed
+\usepackage{float}
+
+% Define code listing style
+\lstdefinestyle{cppStyle}{
+  language=C++,
+  basicstyle=\small\ttfamily,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!60!black},
+  stringstyle=\color{red},
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  tabsize=2
+}
+
+% Title and author information
+\title{Problem Set }
+\author{sharif}
+\date{\today} % Use \date{} for no date or specify a specific date
+
+% Document content
+\begin{document}
+
+\maketitle
+
+
+\lstset{style=cppStyle}
+
+\section{Wormholes} \href{https://onlinejudge.org/index.php?option=onlinejudge&Itemid=8&category=551&page=show_problem&problem=499}{Link} \\
+
+This problem is based on finding a \textbf{negative cycle} in a graph.\\
+ALgorithm used: \textbf{Bellman ford }\\
+\\
+\\
+\\
+
+{\small
+\begin{lstlisting}[caption={},aboveskip=0pt, belowskip=0pt]
+
+#include<bits/stdc++.h>
+using namespace std ;
+
+
+ bool find_negative_cycle(vector<pair<int,int>>adj[],int noVertices ,int source)
+{
+    vector<int>distance(noVertices,numeric_limits<int>::max());
+    distance[source]=0 ;
+
+    //Relaxation
+    for(int i=0 ;i<noVertices-1;i++)
+    {
+        for(int u=0;u<noVertices;u++)
+        {
+            for(auto edges: adj[u])
+            {
+                int v=edges.first ;
+                int weight=edges.second ;
+                if(distance[u]!=numeric_limits<int>::max() && distance[u]+weight<distance[v])
+                {
+                    distance[v]=distance[u]+weight ;
+                }
+            }
+        }
+    }
+
+    //additional iteration to check negative cycle
+    for(int i=0 ;i<noVertices ;i++)
+    {
+        for(auto edges: adj[i])
+            {
+                int v=edges.first ;
+                int weight=edges.second ;
+                if(distance[i]!=numeric_limits<int>::max() && distance[i]+weight<distance[v])
+                {
+                    return true ;
+                }
+            }
+    }
+    return false ;
+
+}
+
+
+int main()
+{
+
+int t ,n,m;//star system , wormholes
+scanf("%d",&t);
+while(t--)
+{
+ scanf("%d%d",&n,&m);
+ vector<pair<int,int>>adj[n+10] ;
+ for(int i=0 ;i<m ;i++)
+ {
+     int u,v,w ;
+     scanf("%d%d%d",&u,&v,&w);
+     adj[u].push_back({v,w});
+
+ }
+
+ if(find_negative_cycle(adj,n,0))
+ {
+     printf("possible\n");
+ }
+ else
+ {
+     printf("not possible\n");
+ }
+
+}
+
+return 0 ;
+}
+
+
+
+\end{lstlisting}
+
+}
+
+
+
+\section{King Escape} \href{https://codeforces.com/problemset/problem/1033/A}{Link} \\
+
+
+ALgorithm used: \textbf{dfs }
+
+
+\begin{figure}[H] 
+{
+\small
+\begin{lstlisting}[caption={},aboveskip=0pt, belowskip=0pt]
+
+#include<bits/stdc++.h>
+using namespace std;
+const int N=1e3+10 ;
+
+int visited[N][N] ;
+int n,ax,ay,bx,by,cx,cy ;
+
+bool checkValidMove(int nx,int ny) //new x and new y
+{
+    if(nx==ax || ny==ay) // check horizontal and vertical
+    {
+        return true ;
+    }
+    if(abs(nx-ax)==abs(ny-ay)) //check queen and king are same diagonal or not
+    {
+        return true ;
+    }
+
+    return false ;
+}
+
+void dfs(int x,int y) {
+
+    int dx[8] = {1, 1, 1, 0, 0, -1, -1, -1};
+    int dy[8] = {1, 0, -1, 1, -1, 1, 0, -1};
+
+        if(x<1 || x>n || y<1 || y>n)
+        {
+            return ;
+        }
+        if(visited[x][y])
+        {
+            return  ;
+        }
+
+        if(checkValidMove(x,y))
+        {
+            return ;
+        }
+    visited[x][y]=1 ;
+
+        for (int i = 0; i < 8; ++i) {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+
+            dfs(nx,ny);//check for new cell
+
+        }
+}
+
+int main() {
+cin >> n;
+   // queen location
+    cin >> ax >> ay;
+    // king location
+    cin >> bx >> by;
+    // target location
+    cin >> cx >> cy;
+
+    dfs(bx,by);
+    if (visited[cx][cy])
+        cout << "YES" << endl;
+    else
+        cout << "NO" << endl;
+
+    return 0;
+}
+
+
+\end{lstlisting}
+
+}
+\end{figure}
+
+
+\section{ leetCode-Find if Path Exists in Graph
+} \href{https://leetcode.com/problems/find-if-path-exists-in-graph/description/}{Link} \\
+
+This problem is based on finding a \textbf{connected component } in a graph.\\
+ALgorithm used: \textbf{dfs }  \\ \\
+
+{\small
+\begin{lstlisting}[caption={},aboveskip=0pt, belowskip=0pt]
+
+class Solution {
+
+     void dfs(int source ,vector<int>adj[], vector<bool>&visit )
+    {
+        visit[source]=true ;
+        for(auto child: adj[source]) //traverse adjacent nodes  of source 
+        {
+            if(!visit[child])
+            {
+                visit[child]=true ;
+                dfs(child,adj,visit);
+            }
+        }
+    }
+public:
+    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
+        
+        int x=edges.size() ;
+        vector<int>adj[n];
+        vector<bool>visit(n,false) ;
+
+        for(int i=0 ;i<x ;i++)
+        {
+            adj[edges[i][0]].push_back(edges[i][1]);
+            adj[edges[i][1]].push_back(edges[i][0]);
+
+        }
+
+        
+                dfs(source,adj,visit); // traverse from source if found destination return true 
+
+                if( (visit[source] && !visit[destination]) ||  (!visit[source] &&visit[destination]))
+                {
+                    return false ;
+                }
+            
+        
+         return true ;
+
+
+    }
+};
+
+\end{lstlisting}
+}
+
+
+
+\section{CodeForces-Bmail Computer Network} \href{https://codeforces.com/problemset/problem/1057/A}{Link} \\
+
+This problem is based on finding a \textbf{Connected path from source to destination } in a graph.\\
+Algorithm used: \textbf{BFS}\\
+\\
+\\
+\\
+\\
+\\
+\\
+
+
+
+{\small
+\begin{lstlisting}[style=cppStyle]
+#include<bits/stdc++.h>
+using namespace std ;
+const int N=200000 ;
+int visited[N];
+
+void bfs(vector<int>graph[],int parent[],int source)
+{
+    queue<int>q ;
+    q.push(source);
+    visited[source]=1 ;
+    parent[source]=-1 ;
+    while(!q.empty())
+    {
+        int v=q.front();
+        for(auto u: graph[v])
+        {
+            if(!visited[u])
+            {
+                parent[u]=v ;
+                visited[u]=true ;
+                q.push(u);
+
+            }
+        }
+           q.pop() ;
+    }
+
+}
+
+void path(int parent[],int src) // using recursion for finding parent ( destination to source)
+{
+
+    if(parent[src]==-1){
+            printf("%d ",1);
+        return ;
+    }
+
+
+   path(parent ,parent[src]);
+   printf("%d ",src);
+}
+
+int main()
+{
+ int n ;
+ cin>>n ;
+ vector<int>graph[n+5];
+
+ int parent[n]={} ;
+ //8
+ //1 1 2 2 3 2 5
+
+ for(int i=2 ;i<=n ;i++)
+ {
+     int a;
+     cin>>a ;
+     graph[i].push_back(a);
+     graph[a].push_back(i);
+ }
+
+ bfs(graph,parent,1) ;
+ path(parent,n);
+
+
+ //** you can use this path(parent,n) method  or this block of code to print path **
+
+ /*
+ int src=n ;
+ set<int>path ;
+ while(src!=-1)
+ {
+     path.insert(src);
+     src=parent[src] ;
+ }
+ for(auto u: path)
+    cout<<u<<" " ;*/
+
+
+}
+
+\end{lstlisting}
+}
+
+
+\section{LeetCode - Convert Sorted Array to Binary Search Tree } \href{https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/description/}{Link} \\
+
+This problem is based on  \textbf{convert a array to binary search tree }\\
+Algorithm used: \textbf{Binary search Tree}
+
+\begin{figure}[H]
+\begin{lstlisting}[style=cppStyle]
+class Solution {
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        int size = nums.size();
+        int half = size/2;
+        
+        if(size == 0)
+            return NULL; // if no child
+
+        
+        TreeNode* root = new TreeNode(nums[half]);
+        //create a root node 
+        if(size == 1)
+            return root;
+
+          //left child ( start to half of nums vector )  
+        vector<int>left(nums.begin(), nums.begin() + half);
+        //right child( half to end  of nums vector )
+        vector<int>right(nums.begin() + half + 1, nums.end());
+        root->left = sortedArrayToBST(left);
+        root->right = sortedArrayToBST(right);
+        
+        return root;
+    }
+};
+\end{lstlisting}
+\end{figure}
+
+
+
+\section{Uva - Dividing coins } \href{https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=503}{Link} \\
+
+This problem is based on  \textbf{ optimization technique }\\
+Algorithm used: \textbf{0/1 knapSack}\\
+\\
+\\
+\\
+\\
+\\
+
+
+\begin{lstlisting}[style=cppStyle]
+
+#include<bits/stdc++.h>
+using namespace std ;
+const int N = 110;
+const int MAXN = 102*500;
+int weight[N];
+int dp[N][MAXN] ;
+
+int sum ;
+
+//used 2D array
+
+int knapSack(int m)
+{
+    int max_weight=sum/2 ; // here max capacity will be half of  total weight
+
+    for(int i=0; i <=max_weight; i++)
+     dp[0][i] = 0;
+
+
+    for(int i=1 ;i<=m;i++)
+    {
+        for(int w=0 ;w<=max_weight ;w++)
+        {
+            if(weight[i]<=w)
+            {
+               dp[i][w]=max(dp[i-1][w],(dp[i-1][w-weight[i]]+weight[i]));
+            }
+            else
+            {
+                dp[i][w]=dp[i-1][w] ;
+            }
+
+        }
+    }
+
+
+    return dp[m][max_weight];
+}
+
+//using 1D Array (memory optimization)
+//int  knapSack(int m)
+//{
+//    int w=sum/2 ;
+//  for(int i=1 ;i<=m ;i++)
+//  {
+//      for(int j=w ;j>0 ;j--)
+//      {
+//          if(weight[i]<=j)
+//          {
+//              dp[j]=max(dp[j],weight[i]+dp[j-weight[i]]);
+//          }
+//      }
+//  }
+//    return dp[w];
+//}
+//
+
+int main()
+{
+
+int t ;
+scanf("%d",&t);
+while(t--)
+{
+int m ;
+scanf("%d",&m);
+
+sum=0 ;
+for(int i=1 ;i<=m ;i++)
+{
+    scanf("%d",&weight[i]) ;
+    sum+=weight[i] ;
+}
+
+  printf("%d\n", sum - 2*knapSack(m) );
+}
+return 0 ;
+}
+\end{lstlisting}
+
+
+
+
+
+
+\section{Codeforces-KnapSack } \href{https://codeforces.com/problemset/problem/1446/A}{Link} \\
+
+This problem is based on  \textbf{ greedy technique }\\
+Algorithm used: \textbf{}\\
+
+\begin{lstlisting}[style=cppStyle]
+#include<bits/stdc++.h>
+using namespace std ;
+
+
+long long  total_weight ;
+long long  oneItem ;
+long long  weight ;
+vector<int>items ;
+
+int main()
+{
+
+    int t ;
+    cin>>t ;
+    while(t--)
+    {
+        long long n,w ;
+        cin>>n>>w ;
+
+
+        total_weight=0 ;
+        oneItem=0 ;
+
+        for(int i=1 ; i<=n ; i++)
+        {
+            cin>>weight ;
+            if(weight <= w )
+            {
+                if(weight>=(w+1)/2)
+                {
+                    oneItem=i ;
+                }
+                else if ( total_weight < (w+1)/2)
+                {
+                    items.push_back(i);
+                    total_weight+=weight ;
+                }
+            }
+
+        }
+
+        if(oneItem>0)
+        {
+            cout<<1<<'\n'<<oneItem ;
+
+        }
+        else
+        {
+            if(total_weight>=(w+1)/2)
+            {
+                cout<<items.size()<<endl ;
+                for(auto u: items)
+                    cout<<u<<" " ;
+
+            }
+            else
+            {
+                cout<<-1 ;
+            }
+        }
+
+        cout<<endl;
+        items.clear();
+
+    }
+
+}
+
+\begin{figure}[H]
+\end{figure}
+\end{lstlisting}
+
+\section{LeetCode-Is Subsequence } \href{https://leetcode.com/problems/is-subsequence/description/}{Link} \\
+
+This problem is based on  \textbf{ Longest common subsequence  }\\
+Algorithm used: \textbf{LCS}\\
+
+\begin{lstlisting}[style=cppStyle]
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+
+        int sub=s.size();
+        int  original=t.size();
+        
+        int dp[sub+1][original+1];
+
+        for(int i=0 ;i<=sub ;i++)
+        dp[i][0]=0 ; //fill first row and first column with zero
+        for(int i=0 ; i<=original;i++)
+        dp[0][i]=0 ;
+
+        for(int i=1 ;i<=sub;i++)
+        {
+            for(int j=1 ;j<=original ;j++)
+            {
+                if(s[i-1]==t[j-1])
+                {
+                    dp[i][j]=1+dp[i-1][j-1];//if match subsequence with original string 
+                }
+                else
+                {
+                    dp[i][j]=max(dp[i][j-1],dp[i-1][j]);// if not match 
+                }
+            }
+        }
+
+        if(dp[sub][original]==sub)
+        return true ;
+        else
+        return false ;
+        
+    }
+};
+\end{lstlisting}
+
+
+%\section{Methodology}
+%\lipsum[2-3] % Dummy text
+
+
+
+% Bibliography (if needed)
+% \bibliographystyle{plain}
+% \bibliography{references}
+
+\end{document}
