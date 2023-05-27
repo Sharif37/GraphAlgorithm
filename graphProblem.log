@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2023.1.11)  24 MAY 2023 19:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2023.1.11)  28 MAY 2023 01:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -522,15 +522,216 @@ Underfull \hbox (badness 10000) in paragraph at lines 594--596
 
  []
 
-[9] [10] (graphProblem.aux)
-Package rerunfilecheck Info: File `graphProblem.out' has not changed.
-(rerunfilecheck)             Checksum: 0641BF7244B339AE58E0FFB81B923216;1477.
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 636--637
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 638--640
+
+ []
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 712--713
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 714--716
+
+ []
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 776--777
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 778--780
+
+ []
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 833--834
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 835--838
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 835--838
+
+ []
+
+[13]
+Underfull \hbox (badness 10000) in paragraph at lines 911--914
+
+ []
+
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 954--955
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 956--958
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 982--983
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 984--986
+
+ []
+
+[15]
+Underfull \hbox (badness 10000) in paragraph at lines 1043--1044
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1045--1047
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1079--1080
+
+ []
+
+[16]
+Underfull \hbox (badness 10000) in paragraph at lines 1081--1083
+
+ []
+
+[17]
+Underfull \hbox (badness 10000) in paragraph at lines 1151--1152
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1153--1155
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1201--1202
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1203--1205
+
+ []
+
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 1271--1272
+
+ []
+
+[19]
+Underfull \hbox (badness 10000) in paragraph at lines 1273--1275
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1333--1334
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1335--1337
+
+ []
+
+[20]
+Underfull \hbox (badness 10000) in paragraph at lines 1402--1403
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1404--1406
+
+ []
+
+[21]
+Underfull \hbox (badness 10000) in paragraph at lines 1443--1444
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1445--1447
+
+ []
+
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 1478--1479
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1480--1482
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1524--1525
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1526--1528
+
+ []
+
+[23] [24]
+Underfull \hbox (badness 10000) in paragraph at lines 1614--1615
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1616--1618
+
+ []
+
+[25]
+
+Package hyperref Warning: Suppressing link with empty target on input line 1694
+.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1694--1695
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1696--1698
+
+ []
+
+[26] (graphProblem.aux)
+
+Package rerunfilecheck Warning: File `graphProblem.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `graphProblem.out':
+(rerunfilecheck)             Before: 3F1F8B5FFAB39BB2E93A1340272598DA;4601
+(rerunfilecheck)             After:  3E41E8273559318746CF9D13DBA5D3D0;4724.
  ) 
 Here is how much of TeX's memory you used:
- 11972 strings out of 475385
- 186921 string characters out of 2776907
- 1108055 words of memory out of 3000000
- 32730 multiletter control sequences out of 15000+600000
+ 13130 strings out of 475385
+ 203777 string characters out of 2776907
+ 1108056 words of memory out of 3000000
+ 32949 multiletter control sequences out of 15000+600000
  478453 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  72i,6n,77p,389b,2112s stack positions out of 10000i,1000n,20000p,200000b,80000s
@@ -542,9 +743,9 @@ pen/ec/dpi600\ecrm1000.pk> <C:\Users\shari\AppData\Local\MiKTeX\fonts/pk/ljfour
 /jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\shari\AppData\Local\MiKTeX\fonts/pk/
 ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\shari\AppData\Local\MiKTeX\fon
 ts/pk/ljfour/jknappen/ec/dpi600\ecrm1728.pk>
-Output written on graphProblem.pdf (10 pages, 173038 bytes).
+Output written on graphProblem.pdf (26 pages, 366478 bytes).
 PDF statistics:
- 924 PDF objects out of 1000 (max. 8388607)
- 502 named destinations out of 1000 (max. 500000)
- 65 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2197 PDF objects out of 2487 (max. 8388607)
+ 1441 named destinations out of 1728 (max. 500000)
+ 209 words of extra memory for PDF output out of 10000 (max. 10000000)
 

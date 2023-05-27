@@ -633,6 +633,1071 @@ public:
 };
 \end{lstlisting}
 
+\section{Uva-dominos2} \href{https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2513}{Link} \\
+
+This problem is based on  \textbf{  visited node number from given node }\\
+Algorithm used: \textbf{dfs}\\
+
+\begin{lstlisting}[style=cppStyle]
+
+#include<bits/stdc++.h>
+using namespace std ;
+const int N=10005 ;
+bool vis[N];
+int c ;
+vector<int>adj[N];
+
+void dfs(int src)
+{
+    c++ ;
+    vis[src]=true ;
+    //cout<<src<<endl ;
+    for(auto u: adj[src])
+    {
+        if(!vis[u])
+        {
+            vis[u] =true ;
+            dfs(u);
+        }
+    }
+
+}
+
+int main()
+{
+
+
+    int t ;
+    scanf("%d",&t);
+    while(t--)
+    {
+        int n,m,l ;
+        scanf("%d%d%d",&n,&m,&l);
+        for(int i=0; i<m ; i++)
+        {
+            int x,y ;
+            scanf("%d%d",&x,&y);
+            adj[x].push_back(y);
+        }
+        int fallDominos[l];
+        for(int i=0 ; i<l ; i++)
+        {
+            int a ;
+            scanf("%d",&a);
+            fallDominos[i]=a ;
+        }
+        for(int i=0 ; i<l ; i++)
+        {
+            if(!vis[fallDominos[i]])
+                dfs(fallDominos[i]);
+        }
+
+
+        printf("%d\n",c);
+        c=0 ;
+        fill(vis,vis+N,false);
+        for(int i=0; i<n ; i++)
+        {
+            adj[i].clear();
+        }
+
+
+
+    }
+
+}
+
+\end{lstlisting}
+
+\section{codeforces-: Rumor} \href{https://codeforces.com/problemset/problem/893/C}{Link} \\
+
+This problem is based on  \textbf{ finding connected component  }\\
+Algorithm used: \textbf{dfs}\\
+
+\begin{lstlisting}[style=cppStyle]
+#include<bits/stdc++.h>
+using namespace std ;
+#define ll long long
+const int N=1e5+10 ;
+vector<ll>adj[N] ;
+vector<bool>visited(N,false) ;
+ll cost[N] ;
+ll ans=0 ;
+
+ll dfs( ll src)
+{
+
+    ll m=cost[src];
+    visited[src]=true ;
+    for(auto u:adj[src])
+    {
+        if(!visited[u])
+        {
+            m=min(m,dfs(u));
+        }
+    }
+    return m ;
+}
+
+
+
+int main()
+{
+    ll n,m ;
+    cin>>n>>m ;
+    for(ll i=1; i<=n ; i++)
+    {
+        ll a ;
+        cin>>a ;
+        cost[i]=a ;
+    }
+    for(ll i=0 ; i<m ; i++)
+    {
+        ll x,y ;
+        cin>>x>>y ;
+        adj[x].push_back(y);
+        adj[y].push_back(x);
+    }
+
+    for(ll i=1 ; i<=n ; i++)
+    {
+        if(!visited[i])
+        {
+            ans+=dfs(i);
+        }
+    }
+    cout<<ans<<endl ;
+
+}
+
+\end{lstlisting}
+
+
+\section{leetCode- countCompleteComponents} \href{https://leetcode.com/problems/count-the-number-of-complete-components/description/}{Link} \\
+
+This problem is based on  \textbf{ finding count of complete component in a graph   }\\
+Algorithm used: \textbf{dfs}\\
+
+\begin{lstlisting}[style=cppStyle]
+class Solution {
+    bool vis[6000];
+    int c=0 ;
+    int e=0,v=0 ;
+    vector<int>adj[6000];
+    void dfs(int src)
+    {
+        vis[src]=true ;
+        v++ ;
+        for(auto u: adj[src])
+        {
+            e++ ;
+            if(!vis[u])
+            {
+                dfs(u);
+            }
+        }
+    }
+public:
+    int countCompleteComponents(int n, vector<vector<int>>& edges) {
+       int x=edges.size();
+       for(int i=0 ;i<x ;i++)
+       {
+           adj[edges[i][0]].push_back(edges[i][1]);
+           adj[edges[i][1]].push_back(edges[i][0]);
+       }
+       for(int i=0 ;i<=n-1;i++)
+       {
+           if(!vis[i])
+           {
+              
+               dfs(i);
+               //cout<<v<<" "<<e<<endl ;
+               if(e/2==(v*(v-1))/2)
+               {
+                   c++ ;
+               }
+               v=0 ;
+               e=0 ;
+               
+           }
+       }
+        return c ;
+        
+    }
+};
+
+
+\end{lstlisting}
+
+
+\section{uva-binary search tree} \href{https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3769}{Link} \\
+
+This problem is based on  \textbf{ binary search tree build  }\\
+Algorithm used: \textbf{BST}\\
+\\
+\begin{lstlisting}[style=cppStyle]
+
+#include<bits/stdc++.h>
+using namespace std ;
+
+struct node
+{
+    int value=0 ;
+    node *left=NULL  ;
+    node *right=NULL ;
+};
+
+node *create(node *current,int value)
+{
+    node *newnode=new node();
+    newnode->value=value ;
+    newnode->left=NULL ;
+    newnode->right=NULL ;
+
+    if(current==NULL)
+        return newnode ;
+
+    node *temp=current;
+    node *next=current ;
+    while(next!=NULL)
+    {
+        temp=next ;
+        if(value > next->value )
+        {
+            next=next->right ;
+        }
+        else
+        {
+            next=next->left ;
+        }
+    }
+    if(value > temp->value)
+    {
+        temp->right=newnode ;
+
+    }
+    else
+    {
+        temp->left=newnode ;
+    }
+
+    return current ;
+}
+void post_order(node *t)
+{
+    if(t==NULL)
+        return ;
+    post_order(t->left);
+    post_order(t->right);
+    printf("%d\n",t->value );
+}
+
+int main()
+{
+    node *current=NULL ;
+    int a  ;
+    while(scanf("%d",&a)!=EOF)
+    {
+        current= create(current,a);
+    }
+    node *t=current ;
+    post_order(t);
+
+
+}
+
+\end{lstlisting}
+
+\section{cf-Omkar and Heavenly Tree} \href{https://codeforces.com/contest/1583/problem/B}{Link} \\
+This problem is based on  \textbf{ observation }\\
+Algorithm used: \textbf{}\\
+\begin{lstlisting}[style=cppStyle]
+#include<bits/stdc++.h>
+using namespace std ;
+int main()
+{
+     int t ;
+    cin>>t ;
+    while(t--)
+    {
+        int n,m ;
+        cin>>n>>m ;
+        int a,b,c ;
+        bool res[m];
+        for(int i=1 ; i<=m ; i++)
+        {
+            cin>>a>>b>>c ;
+            res[b]=true ;
+        }
+        int root ;
+        for(int i=1 ; i<=n ; i++)
+        {
+            if(!res[i])
+            {
+                root=i ;
+                break ;
+            }
+        }
+        for(int i=1 ; i<=n ; i++)
+        {
+            if(i==root)
+                continue ;
+            else
+            {
+                cout<<root<<" "<<i<<endl ;
+            }
+        }
+    }
+}
+\end{lstlisting}
+
+\section{leetcode-Invert Binary Tree } \href{https://leetcode.com/problems/invert-binary-tree/description/}{Link} \\
+
+This problem is based on  \textbf{ binary search tree  }\\
+Algorithm used: \textbf{bst}\\
+
+\begin{lstlisting}[style=cppStyle]
+
+class Solution {
+    void pt(TreeNode * temp)
+    {
+        if(temp==NULL)
+        return  ;
+        TreeNode * t=temp->left ;
+        temp->left=temp->right ;
+        temp->right=t ;
+        
+        invertTree(temp->left);
+        invertTree(temp->right);
+    }
+public:
+    TreeNode* invertTree(TreeNode* root) {
+         TreeNode * temp=root ;
+        pt(temp);
+        return temp ;
+    }
+};
+\end{lstlisting}
+
+\section{uva-wedding shoping } \href{https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2445}{Link} \\
+
+This problem is based on  \textbf{DP   }\\
+Algorithm used: \textbf{}\\
+
+\begin{lstlisting}[style=cppStyle]
+#include<bits/stdc++.h>
+using namespace std ;
+int price[25][25];
+int dp[205][25];
+int M,C ;
+int shop(int money,int g)
+{
+    //cout<<"shop("<<money<<","<<g<<")"<<endl ;
+    if(money<0)
+        return -1e9 ;
+    if(g==C)
+        return M-money ;
+    if(dp[money][g]!=-1)
+        return dp[money][g];
+    int ans=-1 ;
+    for(int k=1; k<=price[g][0]; k++)
+    {
+        ans=max(ans,shop(money-price[g][k],g+1)) ;
+    }
+    return dp[money][g]=ans ;
+
+
+}
+
+int main()
+{
+
+    int t ;
+    scanf("%d",&t);
+    while(t--)
+    {
+        scanf("%d%d",&M,&C);
+        for(int i=0 ; i<C ; i++)
+        {
+            scanf("%d",&price[i][0]);
+            for(int j=1; j<=price[i][0]; j++)
+            {
+                scanf("%d",&price[i][j]);
+            }
+        }
+        memset(dp,-1,sizeof(dp));
+        int ans=shop(M,0);
+        if(ans<0)
+        {
+            printf("no solution\n");
+        }
+        else
+            printf("%d\n",ans);
+
+    }
+    return 0 ;
+}
+
+\end{lstlisting}
+
+\section{leetcode-LCS} \href{https://leetcode.com/problems/longest-common-subsequence/description/}{Link} \\
+
+This problem is based on  \textbf{  LCS }\\
+Algorithm used: \textbf{}\\
+
+\begin{lstlisting}[style=cppStyle]
+class Solution {
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+      int s=text1.size();
+      int t=text2.size();
+      int dp[s+1][t+1];
+
+      for(int i=0 ;i<=s;i++)
+      dp[i][0]=0 ;
+      for(int i=0;i<=t ;i++)
+      dp[0][i]=0 ;
+
+      for(int i=1 ;i<=s ;i++)
+      {
+          for(int j=1 ;j<=t ;j++)
+          {
+              if(text1[i-1]==text2[j-1])
+              {
+                  dp[i][j]=1+dp[i-1][j-1];
+              }
+              else
+              dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+          }
+      }
+      return dp[s][t];
+        
+    }
+};
+\end{lstlisting}
+
+\section{codeforces-DZY Loves Chemistry} \href{https://codeforces.com/problemset/problem/445/B}{Link} \\
+
+This problem is based on  \textbf{  connected component  }\\
+Algorithm used: \textbf{dfs}\\
+
+\begin{lstlisting}[style=cppStyle]
+#include<bits/stdc++.h>
+using namespace std ;
+vector<int>adj[60];
+vector<bool>vis(60,false);
+void optimize()
+{
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+}
+int c=0 ;
+void dfs(int src)
+{
+  vis[src]=true ;
+   c++ ;
+  for(auto u: adj[src])
+  {
+      if(!vis[u])
+      {
+          dfs(u);
+      }
+  }
+}
+
+
+int main()
+{
+optimize() ;
+
+int t=1 ;
+
+while(t--)
+{
+int n,m ;
+cin>>n>>m ;
+
+
+for(int i=0 ;i<m ;i++)
+{
+    int x,y ;
+    cin>>x>>y ;
+    adj[x].push_back(y);
+    adj[y].push_back(x);
+}
+
+long long  ans=1 ;
+for(int i=1;i<=n ;i++)
+{
+    if(!vis[i])
+    {
+        dfs(i) ;
+
+    ans*=pow(2,c-1);
+
+    }
+    c=0 ;
+}
+
+
+cout<<ans<<endl ;
+
+}
+
+}
+
+\end{lstlisting}
+
+\section{leetcode-Network Delay Time} \href{https://leetcode.com/problems/network-delay-time/description/}{Link} \\
+
+This problem is based on  \textbf{  SSSP }\\
+Algorithm used: \textbf{Dijkstra }\\
+
+\begin{lstlisting}[style=cppStyle]
+class Solution {
+    vector<pair<int, int>> adj[110];
+    vector<bool> vis{vector<bool>(110, false)};
+    vector<int> dist{vector<int>(110, 1e9)};
+
+    void dijkstra(int src, int n) {
+        vis[src] = true;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+        pq.push({0, src});
+        dist[src] = 0;
+        while (!pq.empty()) {
+            int u = pq.top().second;
+            pq.pop();
+            for (auto x : adj[u]) {
+                int v = x.first;
+                int w = x.second;
+                if (dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
+                    pq.push({dist[v], v});
+                }
+            }
+        }
+    }
+
+public:
+    int networkDelayTime(vector<vector<int>>& times, int n, int k) {
+        int x = times.size();
+        for (int i = 0; i < x; i++) {
+            adj[times[i][0]].push_back({times[i][1], times[i][2]});
+        }
+        dijkstra(k, n);
+        int mx = 0;
+        for (int i = 1; i <= n; i++) {
+            if (dist[i] == 1e9)
+                return -1;
+            mx = max(mx, dist[i]);
+        }
+        return mx;
+    }
+};
+
+\end{lstlisting}
+
+
+\section{leetcode-Min Cost to Connect All Points} \href{https://leetcode.com/problems/min-cost-to-connect-all-points/description/}{Link} \\
+
+This problem is based on  \textbf{  MST }\\
+Algorithm used: \textbf{kruskal}\\
+
+\begin{lstlisting}[style=cppStyle]
+class Solution {
+
+    struct Edge{
+    int src,des,w ;
+};
+
+struct Compare{
+    bool operator()(const Edge &a,const Edge &b){
+        return a.w>b.w ;
+    }
+};
+int findParent(int node,vector<int>&parent)
+{
+    if(parent[node]==-1)
+        return node ;
+
+    return findParent(parent[node],parent);
+
+}
+int kruskalMst(vector<Edge>&edges ,int numVertex)
+{
+   int ans=0,e=0 ;
+    vector<int>parent(numVertex,-1);
+
+    priority_queue<Edge ,vector<Edge>,Compare>pq(edges.begin(),edges.end());
+    while(!pq.empty())
+    {
+        Edge nextEdge=pq.top();
+        pq.pop();
+        int x=findParent(nextEdge.src,parent);
+         int y=findParent(nextEdge.des,parent);
+        if(x!=y)
+        {
+            ans+=nextEdge.w;
+             e++ ;
+            parent[x]=y ;
+        }
+        if(e==numVertex-1)
+        break ;
+    }
+   return ans ;
+}
+public:
+    int minCostConnectPoints(vector<vector<int>>& points) {
+
+        vector<Edge>point;
+        int x=points.size();
+        for(int i=0 ;i<x ;i++)
+        {
+            for(int j=i+1 ;j<x ;j++)
+            {
+               int x1=points[i][0];
+               int y1=points[i][1] ;
+               int x2=points[j][0];
+               int y2=points[j][1] ;
+               point.push_back({i,j,abs(x1-x2)+abs(y1-y2)});
+            }
+        }
+      return  kruskalMst(point,x);
+        
+    }
+};
+\end{lstlisting}
+
+\section{uva-10405 - Longest Common Subsequence} \href{https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1346}{Link} \\
+
+This problem is based on  \textbf{ lcs  }\\
+Algorithm used: \textbf{lcs}\\
+
+\begin{lstlisting}[style=cppStyle]
+#include<bits/stdc++.h>
+using namespace std ;
+
+void optimize()
+{
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+}
+int dp[1001][1001];
+int lcs(string text1,string text2)
+{
+    int s=text1.size();
+    int o=text2.size();
+
+    for(int i=0 ;i<=s ;i++)
+        dp[i][0]=0 ;
+    for(int i=0 ;i<=o ;i++)
+        dp[0][i]=0 ;
+
+    for(int i=1 ;i<=s ;i++)
+    {
+        for(int j=1 ;j<=o ;j++)
+        {
+            if(text1[i-1]==text2[j-1])
+            {
+                dp[i][j]=1+dp[i-1][j-1];
+            }
+            else
+            {
+                dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+            }
+        }
+
+
+    }
+
+    return dp[s][o];
+}
+
+int main()
+{
+optimize() ;
+char s[1010],t[1010];
+
+while(gets(s) && gets(t))
+{
+
+ printf("%d\n",lcs(s,t));
+
+}
+
+}
+
+\end{lstlisting}
+
+
+\section{uva-graph connectivity} \href{https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=400}{Link} \\
+
+This problem is based on  \textbf{ dfs  }\\
+Algorithm used: \textbf{}\\
+
+\begin{lstlisting}[style=cppStyle]
+#include<bits/stdc++.h>
+using namespace std;
+
+bool vis[30];
+vector<int>adj[30];
+
+int charToNumber(char c) {
+    return c - 'A' + 1;
+}
+
+
+void dfs(int node) {
+    vis[node] = true;
+    for (int neighbor : adj[node]) {
+        if (!vis[neighbor]) {
+            dfs(neighbor);
+        }
+    }
+}
+
+int main() {
+int TC, V;
+	char c, a, b;
+	char input[10];
+
+	scanf("%d", &TC);
+	while(TC--)
+	{
+		memset(vis, false, sizeof(vis));
+		cin >> c;
+		V = c - '0' - 16;
+		while(getchar() != '\n');
+		while(gets(input) && sscanf(input, "%c%c", &a, &b) == 2)
+		{
+			int u, v;
+			u = a - '0' - 16;
+			v = b - '0' - 16;
+			adj[u].push_back(v);
+			adj[v].push_back(u);
+		}
+		int ans=0 ;
+		for(int i=1 ;i<=V ;i++)
+        {
+            if(!vis[i])
+            {
+                ans++ ;
+                dfs(i);
+            }
+        }
+        printf("%d\n",ans);
+		if(TC)
+			printf("\n");
+			for(int i=0; i<30; i++)
+			adj[i].clear();
+
+	}
+
+	return 0;
+}
+
+\end{lstlisting}
+
+
+\section{leetcoe-Find the Town Judge} \href{https://leetcode.com/problems/find-the-town-judge/description/}{Link} \\
+
+This problem is based on  \textbf{ dfs  }\\
+Algorithm used: \textbf{}\\
+
+\begin{lstlisting}[style=cppStyle]
+class Solution {
+public:
+
+
+    int findJudge(int n, vector<vector<int>>& trust) {
+
+        int x=trust.size();
+        vector<pair<int,int>>trustCount(n+1,{0,0});
+        
+        for(auto u:trust)
+        {
+            int a=u[0];
+            int b=u[1] ;
+           trustCount[a].first++ ;
+            trustCount[b].second++ ;
+
+        }
+
+       for(int i=1 ;i<=n ;i++)
+       {
+           if(trustCount[i].first==0 && trustCount[i].second==n-1)
+           return i ;
+       }
+       return -1 ;
+         
+         
+         
+
+      
+    }
+};
+\end{lstlisting}
+
+
+
+\section{leetcode-Search in a Binary Search Tree} \href{https://leetcode.com/problems/search-in-a-binary-search-tree/description/}{Link} \\
+
+This problem is based on  \textbf{   }\\
+Algorithm used: \textbf{}\\
+
+\begin{lstlisting}[style=cppStyle]
+
+ TreeNode * print(TreeNode * root,int val)
+ {
+     TreeNode * ans ;
+
+     if(root==NULL)
+     return root;
+
+    if(root->val==val){
+        return root ;
+    }
+ 
+        if(root->val > val)
+     return print(root->left,val);
+     else
+      return print(root->right,val);
+ }
+class Solution {
+public:
+int f=0 ;
+    TreeNode* searchBST(TreeNode* root, int val) {
+       TreeNode *t=root ;
+       return print(root,val);
+      
+    }
+};
+
+\end{lstlisting}
+
+\section{leetcode-Minimum cost for ticket} \href{https://leetcode.com/problems/minimum-cost-for-tickets/description/}{Link} \\
+
+This problem is based on  \textbf{  dp }\\
+Algorithm used: \textbf{}\\
+
+\begin{lstlisting}[style=cppStyle]
+class Solution {
+public:
+    int mincostTickets(vector<int>& days, vector<int>& costs) {
+
+      int n=days.size(),lastDay=days.back();
+      vector<int>dp(lastDay+1),isTravelDay(lastDay+1);
+     // memset(dp,0,lastDay+1);
+      for(auto day:days)
+      {
+          isTravelDay[day]=true;
+      }
+
+      for(int i=1 ;i<=lastDay ;i++)
+      {
+          if(!isTravelDay[i])
+          {
+              dp[i]=dp[i-1];
+              continue ;
+          }
+          dp[i]=dp[i-1]+costs[0];
+          dp[i]=min(dp[i],dp[max(i-7,0)]+costs[1]);
+          dp[i]=min(dp[i],dp[max(i-30,0)]+costs[2]);
+
+      }
+     
+      for(int i=1;i<=lastDay ;i++)
+      {
+          cout<<dp[i]<<" ";
+      }
+        
+         return dp.back();
+    }
+};
+
+
+\end{lstlisting}
+
+
+
+
+\section{cf-forever winter} \href{https://codeforces.com/contest/1829/problem/F}{Link} \\
+
+This problem is based on  \textbf{   }\\
+Algorithm used: \textbf{}\\
+
+\begin{lstlisting}[style=cppStyle]
+
+#include<bits/stdc++.h>
+using namespace std ;
+const int N=210 ;
+
+//vector<int>vis(210,0);
+//vector<int>parent(210,-1);
+//void bfs(int src)
+//{
+//    vis[src]=1 ;
+//    queue<int>q ;
+//    q.push(src);
+//    while(!q.empty())
+//    {
+//        int u=q.front();
+//        q.pop();
+//        for(auto v:adj[u])
+//        {
+//            if(!vis[v])
+//            {
+//                vis[v]=1 ;
+//                parent[v]=u ;
+//                q.push(v);
+//            }
+//        }
+//    }
+//}
+//void dfs(int src)
+//{
+//    vis[src]=1 ;
+//    for(auto u: adj[src])
+//    {
+//        if(!vis[u])
+//        {
+//            parent[u]=src ;
+//            dfs(u);
+//        }
+//    }
+//}
+void optimize()
+{
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+}
+
+int main()
+{
+optimize() ;
+
+int t ;
+cin>>t ;
+while(t--)
+{
+    int adj[N]={0};
+int n,m ;
+cin>>n>>m ;
+
+for(int i=0 ;i<m ;i++)
+{
+    int x,y ;
+    cin>>x>>y ;
+     adj[x]++ ;
+     adj[y]++ ;
+
+}
+
+int c=0 ;
+
+for(int i=1;i<=n;i++)
+{
+   if(adj[i]==1)
+   {
+       c++ ;
+   }
+}
+cout<<m-c<<" "<<c/(m-c)<<endl ;
+
+
+}
+
+}
+
+\end{lstlisting}
+
+\section{uva-heavy cargo} \href{https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=485}{Link} \\
+
+This problem is based on  \textbf{ kruskal algorithm  }\\
+Algorithm used: \textbf{}\\
+
+\begin{lstlisting}[style=cppStyle]
+
+#include<bits/stdc++.h>
+using namespace std ;
+
+struct city
+{
+    string src,des ;
+    int w ;
+} edges[20000];
+long long n,m ;
+string x,y ;
+map<string,string >parent ;
+
+bool cmp(city a, city b)
+{
+    return a.w>b.w ;
+}
+
+string find_root(string r)
+{
+    if(parent[r]=="")
+    {
+        return r ;
+    }
+    return parent[r]=find_root(parent[r]);
+}
+long long kruskal()
+{
+    sort(edges,edges+m,cmp);
+    long long ans=9999999999;
+    for(long long  i=0 ; i<m ; i++)
+    {
+        string u=find_root(edges[i].src);
+        string v=find_root(edges[i].des);
+        if(u!=v)
+        {
+            parent[u]=v ;
+            if(ans>edges[i].w)
+                ans=edges[i].w ;
+        }
+        if(find_root(x)==find_root(y))
+        {
+            return ans ;
+        }
+    }
+    return ans ;
+}
+
+int main()
+{
+
+    long long  caseno=0 ;
+    while(scanf("%lld%lld",&n,&m)==2 &&(n+m)!=0)
+    {
+        parent.clear();
+        for(long long  i=0 ; i<m; i++)
+        {
+            cin>>edges[i].src>>edges[i].des>>edges[i].w ;
+
+        }
+        cin>>x>>y ;
+        printf("Scenario #%lld\n%lld tons\n\n",++caseno,kruskal());
+    }
+
+}
+
+
+\end{lstlisting}
+
+
+
+
+
+
+\section{} \href{}{Link} \\
+
+This problem is based on  \textbf{   }\\
+Algorithm used: \textbf{}\\
+
+\begin{lstlisting}[style=cppStyle]
+\end{lstlisting}
 
 %\section{Methodology}
 %\lipsum[2-3] % Dummy text
